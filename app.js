@@ -3,9 +3,12 @@ document.getElementById('download').addEventListener('click', () => {
         .then(response => response.json())
         .then(data => {
             const chunkSize = 1000;
-            for (let i = 0; i < data.length; i += chunkSize) {
-                const chunk = data.slice(i, i + chunkSize);
+            for (let i = 0; i < data.length; i += chunkSize) { // i starts at 0, increments by 1000 each loop iteration
+                // Create a chunk of data from index i to i + chunkSize
+                const chunk = data.slice(i, i + chunkSize); // Creates a chunk containing 1,000 users
+                // Call the createPDF function, passing the chunk of data and the current chunk number
                 createPDF(chunk, i / chunkSize + 1);
+                // i / chunkSize + 1 calculates the current chunk number (1, 2, 3, ...)
             }
         })
         .catch(error => console.error('Error fetching user data:', error));
